@@ -6,7 +6,7 @@ const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("Elon Musk");
 
   const getResults = async (type) => {
     setIsLoading(true);
@@ -17,13 +17,22 @@ export const ResultContextProvider = ({ children }) => {
         "X-User-Agent": "desktop",
         "X-Proxy-Location": "EU",
         "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
-        "X-RapidAPI-Key": "",
+        // "X-RapidAPI-Key": "{Insert rapid api key}",
       },
     });
 
     const data = await response.json();
 
-    setResults(data);
+    console.log({ type, data });
+    if (type.includes("/news")) {
+      console.log(data.entries);
+      setResults(data.entries);
+    } else if (type.includes("/image")) {
+      setResults(data.image_results);
+    } else {
+      setResults(data.results);
+    }
+
     setIsLoading(false);
   };
 
@@ -36,4 +45,5 @@ export const ResultContextProvider = ({ children }) => {
   );
 };
 
+//The below function makes it easier for us to use the values from this context
 export const useResultContext = () => useContext(ResultContext);

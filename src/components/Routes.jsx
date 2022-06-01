@@ -1,7 +1,7 @@
 import React from 'react'
 import {Routes, Route, Redirect} from 'react-router-dom';
-import Search from './Search';
-import Results from './Results';
+import {Search} from './Search';
+import {Results} from './Results';
 
 const Routers = () => {
   return (
@@ -9,7 +9,7 @@ const Routers = () => {
         <Routes>
             <Route path="/" element={<Search/>}/>
             <Route path={"/search"} element={<Results/>}/>
-            <Route path={"/images"} element={<Results/>}/>
+            <Route path={"/image"} element={<Results/>}/>
             <Route path={"/news"} element={<Results/>}/>
             <Route path={"/videos"} element={<Results/>}/>
         </Routes>
